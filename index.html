@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Propre Histoire - Lou ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6B21A8 0%, #9333EA 20%, #DB2777 40%, #F97316 70%, #FBBF24 100%);
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Floating emojis */
+        .floating-emoji {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: floatEmoji 15s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-emoji:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .floating-emoji:nth-child(2) { top: 20%; right: 8%; animation-delay: 3s; }
+        .floating-emoji:nth-child(3) { bottom: 15%; left: 10%; animation-delay: 6s; }
+        .floating-emoji:nth-child(4) { top: 60%; right: 5%; animation-delay: 9s; }
+        .floating-emoji:nth-child(5) { bottom: 30%; left: 80%; animation-delay: 2s; }
+        .floating-emoji:nth-child(6) { top: 40%; left: 3%; animation-delay: 7s; }
+
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(10deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
+            75% { transform: translateY(-25px) rotate(8deg); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 60px rgba(107, 33, 168, 0.3),
+                0 0 0 1px rgba(255,255,255,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            max-width: 680px;
+            width: 100%;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #7C3AED, #DB2777, #F97316);
+            padding: 30px 30px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 20px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .header h1 {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+
+        .header .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 25px 30px 30px;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            margin-bottom: 25px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #7C3AED;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #F3E8FF;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7C3AED, #DB2777, #F97316);
+            border-radius: 10px;
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Steps dots */
+        .steps-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #E9D5FF;
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            transform: scale(1.3);
+            box-shadow: 0 0 8px rgba(124, 58, 237, 0.4);
+        }
+
+        .step-dot.completed {
+            background: #F97316;
+        }
+
+        /* Page transitions */
+        .page {
+            display: none;
+            animation: fadeSlideIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Intro page */
+        .intro-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .intro-section .big-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .intro-section h2 {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.6rem;
+            color: #7C3AED;
+            margin-bottom: 10px;
+        }
+
+        .intro-section p {
+            color: #6B7280;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .intro-input-group {
+            max-width: 320px;
+            margin: 0 auto 25px;
+        }
+
+        .intro-input-group label {
+            display: block;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .intro-input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #E9D5FF;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-family: 'Nunito', sans-serif;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #FAF5FF;
+        }
+
+        .intro-input-group input:focus {
+            outline: none;
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+            background: white;
+        }
+
+        /* Question styling */
+        .question-header {
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            color: white;
+            font-family: 'Baloo 2', cursive;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1F2937;
+            line-height: 1.4;
+        }
+
+        /* Radio / Checkbox options */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-item input[type="radio"],
+        .option-item input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 2px solid #E9D5FF;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            color: #374151;
+            background: #FEFCFF;
+            line-height: 1.4;
+        }
+
+        .option-item label:hover {
+            border-color: #C084FC;
+            background: #FAF5FF;
+            transform: translateX(4px);
+        }
+
+        .option-item input[type="radio"]:checked + label,
+        .option-item input[type="checkbox"]:checked + label {
+            border-color: #7C3AED;
+            background: linear-gradient(135deg, #F3E8FF, #FCE7F3);
+            color: #6B21A8;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(124, 58, 237, 0.15);
+        }
+
+        .custom-radio,
+        .custom-checkbox {
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            border-radius: 50%;
+            border: 2px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .custom-checkbox {
+            border-radius: 6px;
+        }
+
+        .option-item input[type="radio"]:checked + label .custom-radio {
+            border-color: #7C3AED;
+            background: #7C3AED;
+        }
+
+        .option-item input[type="radio"]:checked + label .custom-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .option-item input[type="checkbox"]:checked + label .custom-checkbox {
+            border-color: #7C3AED;
+            background: #7C3AED;
+        }
+
+        .option-item input[type="checkbox"]:checked + label .custom-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* Optional text field */
+        .optional-text {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .optional-text label {
+            display: block;
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            margin-bottom: 6px;
+            font-style: italic;
+        }
+
+        .optional-text input,
+        .optional-text textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px dashed #E5E7EB;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.3s ease;
+            background: #F9FAFB;
+            resize: vertical;
+        }
+
+        .optional-text input:focus,
+        .optional-text textarea:focus {
+            outline: none;
+            border-color: #C084FC;
+            border-style: solid;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.1);
+        }
+
+        /* Error message */
+        .error-msg {
+            color: #DC2626;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 8px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            animation: shake 0.4s ease;
+        }
+
+        .error-msg.show {
+            display: flex;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-prev {
+            background: #F3E8FF;
+            color: #7C3AED;
+        }
+
+        .btn-prev:hover {
+            background: #E9D5FF;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #7C3AED, #9333EA);
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-next:hover {
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #DB2777, #F97316);
+            color: white;
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.3);
+            padding: 14px 36px;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 6px 20px rgba(219, 39, 119, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #7C3AED, #DB2777, #F97316);
+            color: white;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+            padding: 16px 40px;
+            font-size: 1.15rem;
+        }
+
+        .btn-start:hover {
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .spacer {
+            flex: 1;
+        }
+
+        /* Success page */
+        .success-section {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .success-section .big-emoji {
+            font-size: 5rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: celebrateBounce 1s ease;
+        }
+
+        @keyframes celebrateBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        .success-section h2 {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #7C3AED, #DB2777, #F97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .success-section p {
+            color: #6B7280;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .confetti-container {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            top: -10px;
+            font-size: 1.5rem;
+            animation: confettiFall 3s ease-in forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .container {
+                border-radius: 20px;
+            }
+
+            .header {
+                padding: 22px 20px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 20px 18px 25px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .option-item label {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+
+            .nav-buttons {
+                flex-wrap: wrap;
+            }
+
+            .floating-emoji {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Page number badge */
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            color: #9CA3AF;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating emojis background -->
+    <div class="floating-emoji">🌸</div>
+    <div class="floating-emoji">✨</div>
+    <div class="floating-emoji">🦋</div>
+    <div class="floating-emoji">🌺</div>
+    <div class="floating-emoji">💫</div>
+    <div class="floating-emoji">🎨</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>✨ Ma Propre Histoire ✨</h1>
+            <div class="subtitle">🌸 Un questionnaire pour imaginer ton aventure 🌸</div>
+        </div>
+
+        <div class="content">
+            <!-- Progress bar (hidden on intro) -->
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-label">
+                    <span id="progressText">Étape 1 sur 5</span>
+                    <span id="progressPercent">20%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressFill" style="width: 20%;"></div>
+                </div>
+                <div class="steps-dots">
+                    <div class="step-dot active" data-step="1"></div>
+                    <div class="step-dot" data-step="2"></div>
+                    <div class="step-dot" data-step="3"></div>
+                    <div class="step-dot" data-step="4"></div>
+                    <div class="step-dot" data-step="5"></div>
+                </div>
+            </div>
+
+            <!-- ==================== INTRO PAGE ==================== -->
+            <div class="page active" id="page-intro">
+                <div class="intro-section">
+                    <span class="big-emoji">📖</span>
+                    <h2>Bienvenue dans ton histoire !</h2>
+                    <p>
+                        Coucou ! 💜 Ce petit questionnaire va t'aider à imaginer 
+                        <strong>l'histoire que tu aimerais vivre</strong> — dans un futur dessin animé ou manga ! 🎬✨<br><br>
+                        Pas de bonnes ou mauvaises réponses, laisse parler ton imagination ! 🌈
+                    </p>
+                    <div class="intro-input-group">
+                        <label for="prenom">Ton prénom 🌟</label>
+                        <input type="text" id="prenom" name="prenom" value="Lou" placeholder="Entre ton prénom ici...">
+                    </div>
+                    <button class="btn btn-start" onclick="startQuestionnaire()">
+                        C'est parti ! 🚀
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE 1 : Univers idéal ==================== -->
+            <div class="page" id="page-1">
+                <div class="question-header">
+                    <span class="question-number">🌍 Page 1 / 5</span>
+                    <div class="question-text">
+                        Si tu pouvais créer ton propre monde, quel genre d'univers te plairait le plus ? 🌌
+                    </div>
+                </div>
+
+                <div class="options-list">
+                    <div class="option-item">
+                        <input type="radio" name="univers" id="univers1" value="Monde moderne (Abidjan, maquis, fac, réseaux sociaux)">
+                        <label for="univers1">
+                            <span class="custom-radio"></span>
+                            🏙️ Un monde moderne, comme Abidjan aujourd'hui, avec des maquis, la fac, les réseaux sociaux
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="univers" id="univers2" value="Monde futuriste (technologies avancées, robots)">
+                        <label for="univers2">
+                            <span class="custom-radio"></span>
+                            🤖 Un monde futuriste, avec des technologies avancées et des robots
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="univers" id="univers3" value="Monde magique (roches et éléments qui prennent vie)">
+                        <label for="univers3">
+                            <span class="custom-radio"></span>
+                            🔮 Un monde magique, où les roches et les éléments prennent vie
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="univers" id="univers4" value="Monde sous-marin (fond de l'océan, sirène)">
+                        <label for="univers4">
+                            <span class="custom-radio"></span>
+                            🧜‍♀️ Un monde sous-marin, au fond de l'océan comme une sirène
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="univers" id="univers5" value="Autre">
+                        <label for="univers5">
+                            <span class="custom-radio"></span>
+                            ✏️ Autre (précise ci-dessous)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="optional-text">
+                    <label for="univers_autre">💡 Si aucune des propositions ne te convient, écris ta propre réponse ici :</label>
+                    <input type="text" id="univers_autre" name="univers_autre" placeholder="Mon univers idéal serait...">
+                </div>
+
+                <div class="error-msg" id="error-1">
+                    ⚠️ Choisis au moins une option avant de continuer !
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-prev" onclick="goToPage('intro')">⬅️ Retour</button>
+                    <button class="btn btn-next" onclick="nextPage(1)">Suivant ➡️</button>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE 2 : Rôle dans l'histoire ==================== -->
+            <div class="page" id="page-2">
+                <div class="question-header">
+                    <span class="question-number">🎭 Page 2 / 5</span>
+                    <div class="question-text">
+                        Dans cette histoire, quel rôle aimerais-tu jouer ? 🌟
+                    </div>
+                </div>
+
+                <div class="options-list">
+                    <div class="option-item">
+                        <input type="radio" name="role" id="role1" value="L'héroïne qui découvre un pouvoir spécial">
+                        <label for="role1">
+                            <span class="custom-radio"></span>
+                            ⚡ L'héroïne qui se réveille et découvre un pouvoir spécial (ex : forer les émotions)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="role" id="role2" value="La meilleure amie fidèle (comme Sarah)">
+                        <label for="role2">
+                            <span class="custom-radio"></span>
+                            💛 La meilleure amie fidèle qui soutient tout le monde (comme Sarah)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="role" id="role3" value="La stratège de l'ombre (comme Kilian)">
+                        <label for="role3">
+                            <span class="custom-radio"></span>
+                            🧠 La stratège de l'ombre qui tire les ficelles (comme Kilian)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="role" id="role4" value="L'aventurière qui voyage partout (comme Mambo)">
+                        <label for="role4">
+                            <span class="custom-radio"></span>
+                            🌊 L'aventurière qui voyage partout (comme Mambo)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="role" id="role5" value="La business woman qui gère son empire (comme Manou CFA)">
+                        <label for="role5">
+                            <span class="custom-radio"></span>
+                            👑 La business woman qui gère son petit empire (comme Manou CFA)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="role" id="role6" value="Autre">
+                        <label for="role6">
+                            <span class="custom-radio"></span>
+                            ✏️ Autre (précise ci-dessous)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="optional-text">
+                    <label for="role_autre">💡 Si aucune des propositions ne te convient, écris ta propre réponse ici :</label>
+                    <input type="text" id="role_autre" name="role_autre" placeholder="Mon rôle idéal serait...">
+                </div>
+
+                <div class="error-msg" id="error-2">
+                    ⚠️ Choisis au moins une option avant de continuer !
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-prev" onclick="goToPage(1)">⬅️ Précédent</button>
+                    <button class="btn btn-next" onclick="nextPage(2)">Suivant ➡️</button>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE 3 : Compagnons d'aventure ==================== -->
+            <div class="page" id="page-3">
+                <div class="question-header">
+                    <span class="question-number">👫 Page 3 / 5</span>
+                    <div class="question-text">
+                        Parmi tes amis, lesquels aimerais-tu avoir à tes côtés dans l'histoire ? 🤝<br>
+                        <span style="font-size: 0.85rem; color: #9CA3AF; font-weight: 400;">(Tu peux en choisir plusieurs !)</span>
+                    </div>
+                </div>
+
+                <div class="options-list">
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp1" value="Davoust (le grand frère Lion, géologue dragueur)">
+                        <label for="comp1">
+                            <span class="custom-checkbox"></span>
+                            🦁 Davoust — le grand frère Lion, géologue dragueur
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp2" value="Sarah (l'amie d'enfance fidèle)">
+                        <label for="comp2">
+                            <span class="custom-checkbox"></span>
+                            💕 Sarah — l'amie d'enfance fidèle
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp3" value="Manou CFA (le businessman agronome et tatoueur)">
+                        <label for="comp3">
+                            <span class="custom-checkbox"></span>
+                            💼 Manou CFA — le businessman agronome et tatoueur
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp4" value="Timon (le maçon au cœur tendre)">
+                        <label for="comp4">
+                            <span class="custom-checkbox"></span>
+                            🧱 Timon — le maçon au cœur tendre
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp5" value="Mambo (le tiktokeur marin)">
+                        <label for="comp5">
+                            <span class="custom-checkbox"></span>
+                            📱 Mambo — le tiktokeur marin
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp6" value="Kilian (le codeur discret)">
+                        <label for="comp6">
+                            <span class="custom-checkbox"></span>
+                            💻 Kilian — le codeur discret
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp7" value="Mariam (la copine de Manou, sage et souriante)">
+                        <label for="comp7">
+                            <span class="custom-checkbox"></span>
+                            😊 Mariam — la copine de Manou, sage et souriante
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="compagnons" id="comp8" value="Autre">
+                        <label for="comp8">
+                            <span class="custom-checkbox"></span>
+                            ✏️ Autre (ajoute un prénom ci-dessous)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="optional-text">
+                    <label for="compagnons_autre">💡 Ajoute un prénom ou un personnage qui n'est pas dans la liste :</label>
+                    <input type="text" id="compagnons_autre" name="compagnons_autre" placeholder="Un autre compagnon d'aventure...">
+                </div>
+
+                <div class="error-msg" id="error-3">
+                    ⚠️ Choisis au moins un compagnon avant de continuer !
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-prev" onclick="goToPage(2)">⬅️ Précédent</button>
+                    <button class="btn btn-next" onclick="nextPage(3)">Suivant ➡️</button>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE 4 : Défis à relever ==================== -->
+            <div class="page" id="page-4">
+                <div class="question-header">
+                    <span class="question-number">⚔️ Page 4 / 5</span>
+                    <div class="question-text">
+                        Quel type de défi aimerais-tu affronter dans l'histoire ? 🔥
+                    </div>
+                </div>
+
+                <div class="options-list">
+                    <div class="option-item">
+                        <input type="radio" name="defis" id="defi1" value="Résoudre des énigmes et des puzzles">
+                        <label for="defi1">
+                            <span class="custom-radio"></span>
+                            🧩 Résoudre des énigmes et des puzzles
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="defis" id="defi2" value="Affronter des méchants dans des combats">
+                        <label for="defi2">
+                            <span class="custom-radio"></span>
+                            ⚔️ Affronter des méchants dans des combats (physiques ou avec des pouvoirs)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="defis" id="defi3" value="Aider des gens perdus ou tristes à retrouver le sourire">
+                        <label for="defi3">
+                            <span class="custom-radio"></span>
+                            💖 Aider des gens perdus ou tristes à retrouver le sourire
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="defis" id="defi4" value="Créer et gérer un projet (restaurant, appli, coopérative)">
+                        <label for="defi4">
+                            <span class="custom-radio"></span>
+                            🏗️ Créer et gérer un projet (un restaurant, une appli, une coopérative)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="defis" id="defi5" value="Voyager et découvrir des lieux inconnus">
+                        <label for="defi5">
+                            <span class="custom-radio"></span>
+                            🗺️ Voyager et découvrir des lieux inconnus
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="defis" id="defi6" value="Autre">
+                        <label for="defi6">
+                            <span class="custom-radio"></span>
+                            ✏️ Autre (précise ci-dessous)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="optional-text">
+                    <label for="defis_autre">💡 Si aucune des propositions ne te convient, écris ta propre réponse ici :</label>
+                    <input type="text" id="defis_autre" name="defis_autre" placeholder="Mon défi idéal serait...">
+                </div>
+
+                <div class="error-msg" id="error-4">
+                    ⚠️ Choisis au moins une option avant de continuer !
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-prev" onclick="goToPage(3)">⬅️ Précédent</button>
+                    <button class="btn btn-next" onclick="nextPage(4)">Suivant ➡️</button>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE 5 : Le pouvoir magique ==================== -->
+            <div class="page" id="page-5">
+                <div class="question-header">
+                    <span class="question-number">💎 Page 5 / 5</span>
+                    <div class="question-text">
+                        Si tu pouvais recevoir un pouvoir magique pour lutter contre la lassitude, ce serait lequel ? ✨
+                    </div>
+                </div>
+
+                <div class="options-list">
+                    <div class="option-item">
+                        <input type="radio" name="pouvoir" id="pouv1" value="Forer dans les émotions des gens">
+                        <label for="pouv1">
+                            <span class="custom-radio"></span>
+                            🛢️ La capacité de forer dans les émotions des gens (comme une foreuse de pétrole)
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="pouvoir" id="pouv2" value="Faire rire n'importe qui">
+                        <label for="pouv2">
+                            <span class="custom-radio"></span>
+                            😂 Le pouvoir de faire rire n'importe qui, même quand tout va mal
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="pouvoir" id="pouv3" value="Construire des choses qui protègent les gens">
+                        <label for="pouv3">
+                            <span class="custom-radio"></span>
+                            🏰 La force de construire des choses qui protègent les gens
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="pouvoir" id="pouv4" value="Chanter ou parler pour apaiser les autres">
+                        <label for="pouv4">
+                            <span class="custom-radio"></span>
+                            🎶 Le don de chanter ou de parler pour apaiser les autres
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="pouvoir" id="pouv5" value="Maîtriser les ombres et les codes secrets">
+                        <label for="pouv5">
+                            <span class="custom-radio"></span>
+                            🌑 La maîtrise des ombres et des codes secrets pour démasquer les vérités
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="pouvoir" id="pouv6" value="Autre">
+                        <label for="pouv6">
+                            <span class="custom-radio"></span>
+                            ✏️ Autre (précise ci-dessous)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="optional-text">
+                    <label for="pouvoir_autre">💡 Si aucune des propositions ne te convient, écris ta propre réponse ici :</label>
+                    <input type="text" id="pouvoir_autre" name="pouvoir_autre" placeholder="Mon pouvoir magique serait...">
+                </div>
+
+                <div class="error-msg" id="error-5">
+                    ⚠️ Choisis au moins une option avant de continuer !
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-prev" onclick="goToPage(4)">⬅️ Précédent</button>
+                    <button class="btn btn-submit" id="submitBtn" onclick="submitForm()">
+                        Terminer ✨
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==================== SUCCESS PAGE ==================== -->
+            <div class="page" id="page-success">
+                <div class="success-section">
+                    <span class="big-emoji">🎉</span>
+                    <h2 id="successTitle">Merci Lou !</h2>
+                    <p id="successMessage">
+                        Tes réponses vont inspirer ta propre histoire ! 💜✨<br><br>
+                        Prépare-toi, car ton aventure ne fait que commencer... 🚀🌈
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script>
+        let currentPage = 'intro';
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+
+            // Show target page
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update progress bar
+            const progressContainer = document.getElementById('progressContainer');
+            if (pageId === 'intro' || pageId === 'success') {
+                progressContainer.style.display = 'none';
+            } else {
+                progressContainer.style.display = 'block';
+                const pageNum = parseInt(pageId);
+                const percent = pageNum * 20;
+                document.getElementById('progressFill').style.width = percent + '%';
+                document.getElementById('progressText').textContent = 'Étape ' + pageNum + ' sur 5';
+                document.getElementById('progressPercent').textContent = percent + '%';
+
+                // Update dots
+                document.querySelectorAll('.step-dot').forEach(dot => {
+                    const step = parseInt(dot.dataset.step);
+                    dot.classList.remove('active', 'completed');
+                    if (step === pageNum) {
+                        dot.classList.add('active');
+                    } else if (step < pageNum) {
+                        dot.classList.add('completed');
+                    }
+                });
+            }
+
+            currentPage = pageId;
+
+            // Scroll to top of container
+            document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function goToPage(pageId) {
+            showPage(pageId);
+        }
+
+        function startQuestionnaire() {
+            const prenom = document.getElementById('prenom').value.trim();
+            if (!prenom) {
+                document.getElementById('prenom').style.borderColor = '#DC2626';
+                document.getElementById('prenom').focus();
+                return;
+            }
+            document.getElementById('prenom').style.borderColor = '#E9D5FF';
+            showPage(1);
+        }
+
+        function validatePage(pageNum) {
+            let isValid = false;
+            const errorEl = document.getElementById('error-' + pageNum);
+
+            if (pageNum === 3) {
+                // Checkboxes
+                const checkboxes = document.querySelectorAll('input[name="compagnons"]:checked');
+                isValid = checkboxes.length > 0;
+            } else {
+                // Radio buttons
+                const radioNames = { 1: 'univers', 2: 'role', 4: 'defis', 5: 'pouvoir' };
+                const name = radioNames[pageNum];
+                const selected = document.querySelector('input[name="' + name + '"]:checked');
+                isValid = selected !== null;
+            }
+
+            if (!isValid) {
+                errorEl.classList.add('show');
+                // Auto-hide after 3 seconds
+                setTimeout(() => {
+                    errorEl.classList.remove('show');
+                }, 3000);
+            } else {
+                errorEl.classList.remove('show');
+            }
+
+            return isValid;
+        }
+
+        function nextPage(currentNum) {
+            if (!validatePage(currentNum)) {
+                return;
+            }
+            showPage(currentNum + 1);
+        }
+
+        function getSelectedValues(name) {
+            const checked = document.querySelectorAll('input[name="' + name + '"]:checked');
+            return Array.from(checked).map(el => el.value);
+        }
+
+        function getRadioValue(name) {
+            const selected = document.querySelector('input[name="' + name + '"]:checked');
+            return selected ? selected.value : '';
+        }
+
+        async function submitForm() {
+            if (!validatePage(5)) {
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner"></span> Envoi...';
+
+            const prenom = document.getElementById('prenom').value.trim() || 'Lou';
+
+            // Collect data
+            const formData = {
+                prenom: prenom,
+                univers: getRadioValue('univers'),
+                univers_autre: document.getElementById('univers_autre').value.trim(),
+                role: getRadioValue('role'),
+                role_autre: document.getElementById('role_autre').value.trim(),
+                compagnons: getSelectedValues('compagnons').join(', '),
+                compagnons_autre: document.getElementById('compagnons_autre').value.trim(),
+                defis: getRadioValue('defis'),
+                defis_autre: document.getElementById('defis_autre').value.trim(),
+                pouvoir: getRadioValue('pouvoir'),
+                pouvoir_autre: document.getElementById('pouvoir_autre').value.trim(),
+                _subject: 'Ma Propre Histoire - ' + prenom,
+                _template: 'table',
+                _captcha: 'false'
+            };
+
+            try {
+                const response = await fetch('https://formspree.io/f/xrerrpqg', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // Update success message with name
+                    document.getElementById('successTitle').textContent = 'Merci ' + prenom + ' ! 🎉';
+                    document.getElementById('successMessage').innerHTML = 
+                        'Tes réponses vont inspirer ta propre histoire ! 💜✨<br><br>' +
+                        'Prépare-toi <strong>' + prenom + '</strong>, car ton aventure ne fait que commencer... 🚀🌈';
+
+                    showPage('success');
+                    launchConfetti();
+                } else {
+                    throw new Error('Erreur lors de l\'envoi');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Oups ! Une erreur est survenue lors de l\'envoi. 😢\nVérifie ta connexion internet et réessaie !');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Terminer ✨';
+            }
+        }
+
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const emojis = ['🎉', '✨', '💜', '🌸', '🎊', '💫', '🦋', '🌺', '⭐', '💖', '🎨', '🌈'];
+
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+                    container.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 80);
+            }
+        }
+
+        // Handle Enter key on intro page
+        document.getElementById('prenom').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startQuestionnaire();
+            }
+        });
+
+        // Remove error styling on input focus
+        document.getElementById('prenom').addEventListener('focus', function() {
+            this.style.borderColor = '#7C3AED';
+        });
+    </script>
+</body>
+</html>
